@@ -58,47 +58,60 @@ def is_board_full():
     
     return True
 
+'''
 # false
 print(is_board_full())
-
 #marking all squares
 for row in range(BOARD_ROWS):
         for col in range(BOARD_COLS):
             mark_square(row, col, 1)
 # board is full true
 print(is_board_full())
-
-
-
-
+'''
 # is the middle square abailable?
 # print(avainable_square(1, 1))
 # mark_square(1, 1, 1)                # (1, 1) spot taken by P1, so not available
 # print(avainable_square(1, 1))
 
-
 # mark_square(0, 0, 1)
 # mark_square(1, 1, 2)
 
-
-
-
-
-
-
 # print(board)
-
-
-
-
 
 draw_lines()
 
+player = 1
 
 # Main loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:        # cordinates of clicked position
+            mouseX = event.pos[0]    # x
+            mouseY = event.pos[1]    # y
+
+            # print(mouseX)
+            # print(mouseY)
+
+            clicked_row = int(mouseY // 200)
+            clicked_col = int(mouseX // 200)
+
+            # print(clicked_row)
+            # print(clicked_col)
+
+            if avainable_square(clicked_row, clicked_col):
+                if player == 1:
+                    mark_square(clicked_row, clicked_col, 1)
+                    player = 2
+# after click toggle player
+                elif player == 2:
+                    mark_square(clicked_row, clicked_col, 2)
+                    player = 1
+                
+                print(board)
+
+
 
     pygame.display.update()
